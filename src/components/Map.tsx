@@ -1,7 +1,7 @@
 import React from "react";
 import { Map as MapGL, ViewState } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { ViewStateProps } from "../App";
+import { ViewStateProps } from "../types";
 
 type MapProps = {
   initialViewState?: ViewState;
@@ -10,6 +10,8 @@ type MapProps = {
   onMove: (viewState: ViewStateProps) => void;
   children: React.ReactNode;
 };
+
+const MAPBOX_PUBLIC_KEY = process.env.REACT_APP_MAPBOX_PUBLIC_KEY;
 
 function Map( props: MapProps ) {
 
@@ -20,7 +22,7 @@ function Map( props: MapProps ) {
       doubleClickZoom={true}
       scrollZoom={true}
       viewState={props.viewState}
-      mapboxAccessToken={process.env.REACT_APP_MAPBOX_PUBLIC_KEY}
+      mapboxAccessToken={MAPBOX_PUBLIC_KEY}
       initialViewState={props.initialViewState}
       style = {{ width: "100%", height: "100vh" }}
       mapStyle="mapbox://styles/mapbox/streets-v9"

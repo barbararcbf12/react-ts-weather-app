@@ -1,6 +1,6 @@
 import { Marker } from "react-map-gl";
 import React from "react";
-import { Coordinates } from "../App";
+import { Coordinates } from "../types";
 
 type PinProps = {
   marker: Coordinates;

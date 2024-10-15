@@ -1,13 +1,15 @@
 import React from "react";
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
 import "../styles/react-mapbox.css";
-import { TemperatureUnitEnum } from "../App";
+import { TemperatureUnitEnum } from "../types";
 
 type HeaderProps = {
   onClick: (lat: number, lang: number) => void;
   toggleUnit: () => void;
   unit: TemperatureUnitEnum;
-}
+};
+
+const PUBLIC_KEY = process.env.REACT_APP_MAPBOX_PUBLIC_KEY;
 
 function Header({ onClick, toggleUnit, unit }: HeaderProps) {
   const buttonToggle = (
@@ -34,7 +36,7 @@ function Header({ onClick, toggleUnit, unit }: HeaderProps) {
       <nav className="text-20 lg:space-x-6 flex flex-col items-center justify-center lg:flex-row space-y-2 lg:space-y-0">
         <MapboxAutocomplete
           placeholder="Search City or Zip Code"
-          publicKey={ process.env.REACT_APP_MAPBOX_PUBLIC_KEY }
+          publicKey={ PUBLIC_KEY }
           inputClass='w-full m-0'
           onSuggestionSelect={ (result: string, lat: number, lang: number) => {
             onClick(lat, lang)
