@@ -19,7 +19,7 @@ export async function fetchWeatherData(lat: number, lang: number, setWeatherData
     let obj = {
       city: data.name,
       country: data.sys.country,
-      temperature: (data.main.temp - 273.15).toFixed(2),
+      temperature: data.main.temp,
       description: data.weather[0].description,
       icon: data.weather[0]?.icon ?? ''
     };

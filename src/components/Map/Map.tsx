@@ -2,7 +2,7 @@ import React from "react";
 import { Map as MapGL, ViewState } from 'react-map-gl';
 import Pin from "../Pin/Pin";
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Coordinates, WeatherData } from "../../App";
+import { Coordinates, TemperatureUnitEnum, WeatherData } from "../../App";
 
 export type ViewStateProps = ViewState & { width: number; height: number; };
 
@@ -13,6 +13,7 @@ type MapProps = {
   onClick: (lat: number, lang: number) => void;
   onMove: (viewState: ViewStateProps) => void;
   weatherData?: WeatherData;
+  unit: TemperatureUnitEnum;
 };
 
 function Map( props: MapProps ) {
@@ -31,7 +32,7 @@ function Map( props: MapProps ) {
       onMove ={(e) => props.onMove({...e.viewState, width: 0, height: 0})}
       onClick={(e) => props.onClick(e.lngLat.lat, e.lngLat.lng)}
     >
-      <Pin marker={props.marker} weatherData={props.weatherData} />
+      <Pin marker={props.marker} weatherData={props.weatherData} unit={props.unit} />
     </MapGL>
   );
 }

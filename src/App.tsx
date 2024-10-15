@@ -3,6 +3,7 @@ import Header from "./components/Header/Header";
 import Map, { ViewStateProps } from "./components/Map/Map";
 import { fetchWeatherData } from "./api/fetchWeatherData";
 
+export type TemperatureUnitEnum = 'celsius' | 'fahrenheit';
 export type Coordinates = number[];
 export type WeatherData = {
   city: string,
@@ -32,6 +33,8 @@ const setMapCenter = (position: GeolocationPosition): Coordinates => {
 const position: any = navigator.geolocation.getCurrentPosition(setMapCenter);
 
 function App() {
+  const [unit, setUnit] = useState<TemperatureUnitEnum>('celsius');
+
   const [viewState, setViewState] = useState<ViewStateProps>(initialViewState);
   const [marker, setMarker] = useState<Coordinates>(setMapCenter(position));
   const [weatherData, setWeatherData] = useState<WeatherData | undefined>(undefined);
@@ -49,6 +52,8 @@ function App() {
     getApiData(lat, long);
   };
 
+  const toggleUnit = () => { setUnit(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit') };
+
   const handleOnMove = (viewState: ViewStateProps) => setViewState(viewState);
 
   useEffect(() => {
@@ -58,9 +63,10 @@ function App() {
 
   return (
     <div className="relative h-screen">
-      <Header onClick={handleOnClick}/>
+      <Header onClick={handleOnClick} toggleUnit={toggleUnit} unit={unit} />
       <main>
         <Map
+          unit={unit}
           initialViewState={initialViewState}
           viewState={viewState}
           marker={marker}
