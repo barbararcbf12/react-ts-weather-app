@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import App from '../App';
 
-jest.mock('./components/Map/Map', () => {
+jest.mock('../components/Map', () => {
   return () => <div>Mocked Map</div>;
 });
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Map as MapGL, ViewState } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { ViewStateProps } from "../../App";
+import { ViewStateProps } from "../App";
 
 type MapProps = {
   initialViewState?: ViewState;

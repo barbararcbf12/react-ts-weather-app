@@ -1,6 +1,6 @@
 import React from 'react'
-import "../../styles/card.css"
-import { TemperatureUnitEnum, WeatherData } from "../../App";
+import "../styles/card.css"
+import { TemperatureUnitEnum, WeatherData } from "../App";
 
 type CardProps = {
   weather?: WeatherData;

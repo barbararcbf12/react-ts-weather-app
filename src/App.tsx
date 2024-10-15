@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Header from "./components/Header/Header";
-import Map from "./components/Map/Map";
+import Header from "./components/Header";
+import Map from "./components/Map";
 import { fetchWeatherData } from "./api/fetchWeatherData";
-import Pin from "./components/Pin/Pin";
-import Card from "./components/Card/Card";
+import Pin from "./components/Pin";
+import Card from "./components/Card";
 import { NavigationControl, ViewState } from "react-map-gl";
 
 export type TemperatureUnitEnum = 'celsius' | 'fahrenheit';
@@ -18,8 +18,8 @@ export type WeatherData = {
 }
 
 //Copenhagen's coordinates
-const initialCoordinates: Coordinates =  [55.676098, 12.568337];
-const initialViewState: ViewStateProps = {
+export const initialCoordinates: Coordinates =  [55.676098, 12.568337];
+export const initialViewState: ViewStateProps = {
   latitude: initialCoordinates[0],
   longitude: initialCoordinates[1],
   zoom: 10,

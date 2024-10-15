@@ -1,7 +1,7 @@
 import React from "react";
 import MapboxAutocomplete from 'react-mapbox-autocomplete';
-import "../../styles/react-mapbox.css";
-import { TemperatureUnitEnum } from "../../App";
+import "../styles/react-mapbox.css";
+import { TemperatureUnitEnum } from "../App";
 
 type HeaderProps = {
   onClick: (lat: number, lang: number) => void;
