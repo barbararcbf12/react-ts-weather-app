@@ -1,0 +1,75 @@
+.card{
+    position: relative;
+    z-index: 99;
+    max-width: 100%;
+    color: blue;
+}
+.inner{
+    padding: 1rem;
+    border-radius: 1.5rem;
+    background-color: white;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0,0.3), 1px 1px 10px rgba(0, 0, 0,0.2) ;
+}
+.h1{
+    font-size: 2rem;
+    font-weight: 900;
+}
+.h2{
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+.h3{
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.paragraph{
+    text-transform: capitalize;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.card .icon{
+    width: 2rem;
+    object-fit: contain;
+    object-position: center;
+    transform: scale(2,2);
+    margin-top:1rem;
+
+}
+.card .loading{
+    display:block;
+    width:14rem;
+    height:14rem;
+}
+@media only screen and (min-width: 540px){
+    .inner{
+        display: block;
+        border-radius: 1.5rem;
+        padding : 2rem;
+    }
+    .card{
+        width: 100%;
+        position: relative;
+        border-radius: 1.5rem;
+    }
+    .h1{
+        font-size: 2.9rem;
+    }
+    .h2{
+        font-size: 1.7rem;
+    }
+    .h3{
+        font-size: 1.3rem;
+    }
+    .para{
+        font-size: 0.9rem;
+    }
+    .card .icon{
+        width:2.5rem;
+        margin-top: 2rem;
+    }
+    .card .loading{
+        width:14rem;
+        height:14rem;
+    }
+}
