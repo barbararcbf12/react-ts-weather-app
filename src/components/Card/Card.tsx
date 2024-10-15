@@ -1,14 +1,9 @@
 import React from 'react'
 import "../../styles/card.css"
+import { WeatherData } from "../../App";
 
 type CardProps = {
-  weather: {
-    city: string,
-    country: string,
-    temperature: number,
-    description: string,
-    icon: string
-  },
+  weather?: WeatherData,
   isFetching: boolean
 }
 
@@ -16,19 +11,16 @@ const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
 
 export default function Card(props: CardProps) {
   const { icon, temperature, description, city, country } = props.weather ?? {};
-
-  if (!temperature) return null;
-
   let src = `http://openweathermap.org/img/w/${icon}.png`;
 
   if (!props.isFetching)
     return (
       <div className="card">
         <div className="inner space-y-4">
-          <p className="paragraph flex">
+          <div className="paragraph flex">
             <img src="/pin.svg" alt="logo" className="h-6 w-6 inline-block mr-2 text-white"/>
             <h2>{ city } { country }</h2>
-          </p>
+          </div>
           <p className="h2">{days[new Date().getDay()]}</p>
           <p className="paragraph">{(new Date().toDateString()).slice(3)}</p>
           <img className="icon" src={src} alt=""></img>

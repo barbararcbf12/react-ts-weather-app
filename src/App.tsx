@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 import Map, { ViewStateProps } from "./components/Map/Map";
+import { fetchWeatherData } from "./api/fetchWeatherData";
 
-export type Position = number[];
+export type Coordinates = number[];
+export type WeatherData = {
+  city: string,
+  country: string,
+  temperature: string,
+  description: string,
+  icon: string
+}
 
-const initialCoordinates: Position =  [55.676098, 12.568337];
+const initialCoordinates: Coordinates =  [55.676098, 12.568337];
 const initialViewState: ViewStateProps = {
   latitude: 55.676098,
   longitude: 12.568337,
@@ -14,29 +22,39 @@ const initialViewState: ViewStateProps = {
   padding: { top: 0, bottom: 0, left: 0, right: 0 },
   width: 100,
   height: 100
-}
+};
 
-const setMapCenter = (position: Position): Position => {
-  if(position as Position) return position;
+const setMapCenter = (position: GeolocationPosition): Coordinates => {
+  if(position) return [position.coords.latitude, position.coords.longitude];
   else return initialCoordinates;
-}
+};
+
+const position: any = navigator.geolocation.getCurrentPosition(setMapCenter);
 
 function App() {
   const [viewState, setViewState] = useState<ViewStateProps>(initialViewState);
-  const [marker, setMarker] = useState<Position>(setMapCenter(initialCoordinates));
+  const [marker, setMarker] = useState<Coordinates>(setMapCenter(position));
+  const [weatherData, setWeatherData] = useState<WeatherData | undefined>(undefined);
 
-  const handleOnClick = (lat: number, lang: number) => {
-    setMarker([lat, lang]);
+  const getApiData = async (lat: number, long: number) => await fetchWeatherData(lat, long, setWeatherData);
+  const handleOnClick = async (lat: number, long: number) => {
+    setMarker([lat, long]);
     setViewState( (prevState) => ({
         ...prevState,
-        longitude: lang,
+        longitude: long,
         latitude: lat,
         zoom: 8
       }
-    ))
+    ));
+    getApiData(lat, long);
   };
 
   const handleOnMove = (viewState: ViewStateProps) => setViewState(viewState);
+
+  useEffect(() => {
+    getApiData(setMapCenter(position)[0], setMapCenter(position)[1]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="relative h-screen">
@@ -48,6 +66,7 @@ function App() {
           marker={marker}
           onClick={handleOnClick}
           onMove={handleOnMove}
+          weatherData={weatherData}
         />
       </main>
     </div>
