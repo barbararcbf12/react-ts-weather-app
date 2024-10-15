@@ -1,6 +1,7 @@
 # Git repository for "Weather App"
 
 This is a React.js project, bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![img.png](img.png)
 
 ## Tech stack
 
