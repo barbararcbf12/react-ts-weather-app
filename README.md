@@ -16,6 +16,10 @@ This is a React.js project, bootstrapped with [Create React App](https://github.
 - [Prettier](https://prettier.io/)
 - [Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
+### Data sources
+- [MapBox API](https://docs.mapbox.com/api/overview/)
+- [OpenWeatherMap API](https://openweathermap.org/api)
+
 ## Setup
 
 ### Requirements
