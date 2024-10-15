@@ -1,0 +1,8 @@
+.husky
+.idea
+node_modules
+public/*.js
+assets
+*.hbs
+coverage
+npm-lock.yaml
