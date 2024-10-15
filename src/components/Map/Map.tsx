@@ -16,15 +16,15 @@ function Map( props: MapProps ) {
   return (
     <MapGL
       interactive={true}
-      dragPan={false}
-      doubleClickZoom={false}
+      dragPan={true}
+      doubleClickZoom={true}
       scrollZoom={true}
       viewState={props.viewState}
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_PUBLIC_KEY}
       initialViewState={props.initialViewState}
       style = {{ width: "100%", height: "100vh" }}
-      mapStyle="mapbox://styles/mapbox/streets-v11"
-      onMove ={(e) => props.onMove({...e.viewState, width: 0, height: 0})}
+      mapStyle="mapbox://styles/mapbox/streets-v9"
+      onMove={(e) => props.onMove({...e.viewState, width: window.innerWidth, height: window.innerHeight})}
       onClick={(e) => props.onClick(e.lngLat.lat, e.lngLat.lng)}
     >
       {props.children}

@@ -63,10 +63,15 @@ function App() {
     window.localStorage.setItem('temperatureUnit', JSON.stringify(toggledTemp));
   };
 
-  const handleOnMove = (viewState: ViewStateProps) => setViewState(viewState);
+  const handleOnMove = (newViewState: ViewStateProps) => {
+    if (newViewState.longitude !== viewState.longitude || newViewState.latitude !== viewState.latitude) {
+      setViewState(newViewState);
+    }
+  };
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => {
+    // Set the user's current location as coordinates on the map
+    navigator.geolocation.getCurrentPosition((pos: GeolocationPosition) => {
       const coords: Coordinates = setMapCenter(pos);
       setPosition(coords);
       getApiData(coords[0], coords[1]);
