@@ -4,7 +4,7 @@ import Map from "./components/Map/Map";
 import { fetchWeatherData } from "./api/fetchWeatherData";
 import Pin from "./components/Pin/Pin";
 import Card from "./components/Card/Card";
-import { ViewState } from "react-map-gl";
+import { NavigationControl, ViewState } from "react-map-gl";
 
 export type TemperatureUnitEnum = 'celsius' | 'fahrenheit';
 export type Coordinates = number[];
@@ -96,6 +96,8 @@ function App() {
           <Pin marker={marker}>
             <Card weather={ weatherData } isFetching={ isFetching } unit={ unit }/>
           </Pin>
+
+          <NavigationControl position="bottom-right" showCompass={true} />
         </Map>
       </main>
     </div>
