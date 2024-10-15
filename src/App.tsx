@@ -33,14 +33,15 @@ const setMapCenter = (position: GeolocationPosition): Coordinates => {
 const position: any = navigator.geolocation.getCurrentPosition(setMapCenter);
 
 function App() {
-  const [unit, setUnit] = useState<TemperatureUnitEnum>('celsius');
-
+  const initialTempUnit: string | null = window.localStorage.getItem('temperatureUnit');
+  const [unit, setUnit] = useState<TemperatureUnitEnum>( initialTempUnit && JSON.parse(initialTempUnit) ? JSON.parse(initialTempUnit) : 'celsius');
+  const [isFetching, setIsFetching] = useState<boolean>(false);
   const [viewState, setViewState] = useState<ViewStateProps>(initialViewState);
   const [marker, setMarker] = useState<Coordinates>(setMapCenter(position));
   const [weatherData, setWeatherData] = useState<WeatherData | undefined>(undefined);
 
-  const getApiData = async (lat: number, long: number) => await fetchWeatherData(lat, long, setWeatherData);
-  const handleOnClick = async (lat: number, long: number) => {
+  const getApiData = async (lat: number, long: number) => await fetchWeatherData(lat, long, setWeatherData, setIsFetching);
+  const handleOnClick = (lat: number, long: number) => {
     setMarker([lat, long]);
     setViewState( (prevState) => ({
         ...prevState,
@@ -52,7 +53,10 @@ function App() {
     getApiData(lat, long);
   };
 
-  const toggleUnit = () => { setUnit(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit') };
+  const toggleUnit = () => {
+    setUnit(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit');
+    window.localStorage.setItem('temperatureUnit', JSON.stringify(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit'));
+  };
 
   const handleOnMove = (viewState: ViewStateProps) => setViewState(viewState);
 
@@ -73,6 +77,7 @@ function App() {
           onClick={handleOnClick}
           onMove={handleOnMove}
           weatherData={weatherData}
+          isFetching={isFetching}
         />
       </main>
     </div>

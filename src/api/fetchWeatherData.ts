@@ -1,8 +1,9 @@
 import React from "react";
 import { WeatherData } from "../App";
 
-export async function fetchWeatherData(lat: number, lang: number, setWeatherData:  React.Dispatch<React.SetStateAction<WeatherData | undefined>>) {
+export async function fetchWeatherData(lat: number, lang: number, setWeatherData:  React.Dispatch<React.SetStateAction<WeatherData | undefined>>, setIsFetching: React.Dispatch<React.SetStateAction<boolean>>) {
   try{
+    setIsFetching(true);
     const res = await fetch(`${process.env.REACT_APP_WEATHER_API_URL}?lat=${lat}&lon=${lang}&APPID=${process.env.REACT_APP_OPEN_WEATHER_API_KEY}`,
       // Adding mode as a second parameter to the fetch function solved the CORS issue
       // but TS doesn't recognize the second parameter as a valid option,
@@ -16,6 +17,7 @@ export async function fetchWeatherData(lat: number, lang: number, setWeatherData
         }
       });
     const data = await res.json();
+
     let obj = {
       city: data.name,
       country: data.sys.country,
@@ -23,7 +25,10 @@ export async function fetchWeatherData(lat: number, lang: number, setWeatherData
       description: data.weather[0].description,
       icon: data.weather[0]?.icon ?? ''
     };
+
+    if(data) setIsFetching(false);
     setWeatherData(obj);
+
   } catch (error) {
     console.error(error);
   }

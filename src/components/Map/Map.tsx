@@ -14,6 +14,7 @@ type MapProps = {
   onMove: (viewState: ViewStateProps) => void;
   weatherData?: WeatherData;
   unit: TemperatureUnitEnum;
+  isFetching: boolean;
 };
 
 function Map( props: MapProps ) {
@@ -32,7 +33,12 @@ function Map( props: MapProps ) {
       onMove ={(e) => props.onMove({...e.viewState, width: 0, height: 0})}
       onClick={(e) => props.onClick(e.lngLat.lat, e.lngLat.lng)}
     >
-      <Pin marker={props.marker} weatherData={props.weatherData} unit={props.unit} />
+      <Pin
+        marker={props.marker}
+        weatherData={props.weatherData}
+        unit={props.unit}
+        isFetching={props.isFetching}
+      />
     </MapGL>
   );
 }
