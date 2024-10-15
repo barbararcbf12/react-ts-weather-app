@@ -1,0 +1,25 @@
+.react-mapbox-ac-menu {
+    margin-top: 1px;
+    margin-left: 16px;
+    display: flex;
+    justify-content: center;
+}
+.react-mapbox-ac-input {
+    margin: 0;
+    display: flex;
+    width: 100%;
+    min-width:330px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: transparent;
+    border-radius: 25px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    vertical-align: baseline;
+}
+@media only screen and (min-width: 540px){
+    .react-mapbox-ac-input{
+        font-size: 1.1rem;
+        min-width:320px;
+        margin: 0;
+    }
+}

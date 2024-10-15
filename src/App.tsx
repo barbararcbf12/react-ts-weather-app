@@ -58,7 +58,7 @@ function App() {
 
   return (
     <div className="relative h-screen">
-      <Header />
+      <Header onClick={handleOnClick}/>
       <main>
         <Map
           initialViewState={initialViewState}
