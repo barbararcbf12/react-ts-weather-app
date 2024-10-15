@@ -25,7 +25,7 @@ This is a React.js project, bootstrapped with [Create React App](https://github.
 3. Install the project dependencies by running `npm install`.
 4. Add your OpenWeatherMap API key in the `.env` file.
 
-##3 Scripts
+## Scripts
 
 These are the main commands you'll need to execute to develop the application.
 
