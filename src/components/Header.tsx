@@ -12,8 +12,17 @@ type HeaderProps = {
 const PUBLIC_KEY = process.env.REACT_APP_MAPBOX_PUBLIC_KEY;
 
 function Header({ onClick, toggleUnit, unit }: HeaderProps) {
+
+  function handleOnSuggestionSelect(result: string, lat: number, lang: number) {
+    onClick(lat, lang);
+  }
+
+  function handlToggleTempUnit() {
+    toggleUnit();
+  }
+
   const buttonToggle = (
-    <button onClick={ () => toggleUnit() } className="flex w-full rounded-desktop overflow-hidden">
+    <button onClick={ handlToggleTempUnit } className="flex w-full rounded-desktop overflow-hidden">
       <span
         className={ unit === 'celsius' ? 'py-1 px-3 bg-green-600 text-grey-100' : 'py-1 px-3 bg-grey-300 text-grey-200' }>°C</span>
       <span
@@ -38,9 +47,7 @@ function Header({ onClick, toggleUnit, unit }: HeaderProps) {
           placeholder="Search City or Zip Code"
           publicKey={ PUBLIC_KEY }
           inputClass='w-full m-0'
-          onSuggestionSelect={ (result: string, lat: number, lang: number) => {
-            onClick(lat, lang)
-          } }
+          onSuggestionSelect={ handleOnSuggestionSelect }
           resetSearch={ true }
         />
         <div className="w-30 hidden lg:flex">
