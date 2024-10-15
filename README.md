@@ -1,6 +1,6 @@
-# Git repository for my "react-boilerplate-app"
+# Git repository for "Weather App"
 
-This is my boilerplate project, bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React.js project, bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Tech stack
 
@@ -23,6 +23,7 @@ This is my boilerplate project, bootstrapped with [Create React App](https://git
 1. Install [Node.js](https://nodejs.org/) v16 (or newer)
 2. Install [NPM](https://www.npmjs.com/)
 3. Install the project dependencies by running `npm install`.
+4. Add your OpenWeatherMap API key in the `.env` file.
 
 ##3 Scripts
 
