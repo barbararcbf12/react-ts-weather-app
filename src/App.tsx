@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
-import Map, { ViewStateProps } from "./components/Map/Map";
+import Map from "./components/Map/Map";
 import { fetchWeatherData } from "./api/fetchWeatherData";
+import Pin from "./components/Pin/Pin";
+import Card from "./components/Card/Card";
+import { ViewState } from "react-map-gl";
 
 export type TemperatureUnitEnum = 'celsius' | 'fahrenheit';
 export type Coordinates = number[];
+export type ViewStateProps = ViewState & { width: number; height: number; };
 export type WeatherData = {
   city: string,
   country: string,
@@ -13,10 +17,11 @@ export type WeatherData = {
   icon: string
 }
 
+//Copenhagen's coordinates
 const initialCoordinates: Coordinates =  [55.676098, 12.568337];
 const initialViewState: ViewStateProps = {
-  latitude: 55.676098,
-  longitude: 12.568337,
+  latitude: initialCoordinates[0],
+  longitude: initialCoordinates[1],
   zoom: 10,
   bearing: 0,
   pitch: 0,
@@ -41,6 +46,7 @@ function App() {
   const [weatherData, setWeatherData] = useState<WeatherData | undefined>(undefined);
 
   const getApiData = async (lat: number, long: number) => await fetchWeatherData(lat, long, setWeatherData, setIsFetching);
+
   const handleOnClick = (lat: number, long: number) => {
     setMarker([lat, long]);
     setViewState( (prevState) => ({
@@ -54,8 +60,9 @@ function App() {
   };
 
   const toggleUnit = () => {
-    setUnit(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit');
-    window.localStorage.setItem('temperatureUnit', JSON.stringify(unit === 'fahrenheit' ? 'celsius' : 'fahrenheit'));
+    const toggledTemp = unit === 'fahrenheit' ? 'celsius' : 'fahrenheit'
+    setUnit(toggledTemp);
+    window.localStorage.setItem('temperatureUnit', JSON.stringify(toggledTemp));
   };
 
   const handleOnMove = (viewState: ViewStateProps) => setViewState(viewState);
@@ -67,18 +74,22 @@ function App() {
 
   return (
     <div className="relative h-screen">
-      <Header onClick={handleOnClick} toggleUnit={toggleUnit} unit={unit} />
+      <Header
+        onClick={handleOnClick}
+        toggleUnit={toggleUnit}
+        unit={unit}
+      />
       <main>
         <Map
-          unit={unit}
           initialViewState={initialViewState}
           viewState={viewState}
-          marker={marker}
           onClick={handleOnClick}
           onMove={handleOnMove}
-          weatherData={weatherData}
-          isFetching={isFetching}
-        />
+        >
+          <Pin marker={marker}>
+            <Card weather={ weatherData } isFetching={ isFetching } unit={ unit }/>
+          </Pin>
+        </Map>
       </main>
     </div>
   );
