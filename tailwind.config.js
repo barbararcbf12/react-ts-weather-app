@@ -10,6 +10,9 @@ module.exports = {
       "2xl": "1440px",
       "3xl": "1920px",
     },
+    scale: {
+      "200": "200"
+    },
     fontSize: {
       10: "0.625rem",
       12: "0.75rem",
@@ -36,6 +39,7 @@ module.exports = {
       xsmall: "0.5rem",
       minimal: "0.75rem",
       desktop: "1rem",
+      lg: "1.5rem",
       mobile: "2rem",
       full: "9999px",
     },
@@ -120,9 +124,9 @@ module.exports = {
       current: "currentColor",
     },
     boxShadow: {
-      global: "0 0 8px 0 rgba(11,13,22,0.08)",
-      "elevation-01": "0 1px 10px 0 rgba(11,13,22,0.12)",
-      "elevation-02": "0 8px 16px 0 rgba(11,13,22,0.14)",
+      global: "0 0 8px 0 rgba(11,13,22,0.08) 0 0 8px 0 rgba(11,13,22,0.08)",
+      md: "1px 1px 10px 0 rgba(11,13,22,0.12) 1px 1px 10px 0 rgba(11,13,22,0.12)",
+      lg: "8px 8px 16px 0 rgba(11,13,22,0.14) 8px 8px 16px 0 rgba(11,13,22,0.14)",
     },
     extend: {},
   },
