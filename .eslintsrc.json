@@ -25,15 +25,7 @@
   },
   "overrides": [
     {
-      "files": ["src/**/*.test.{ts,tsx}"],
-      "rules": {
-        "no-restricted-imports": [
-          "error",
-          {
-            "patterns": ["@storybook/testing-library", "@storybook/jest"]
-          }
-        ]
-      }
+      "files": ["src/**/*.test.{ts,tsx}"]
     }
   ]
 }
