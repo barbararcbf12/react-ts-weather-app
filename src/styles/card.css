@@ -4,65 +4,17 @@
     }
 
     .inner {
-        @apply block p-4 rounded-lg bg-white shadow-md;
+        @apply block p-6 rounded-lg bg-white shadow-md;
         box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3), 1px 1px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .h1 {
-        @apply text-32 font-extrabold;
-    }
-
-    .h2 {
-        @apply text-22 font-bold;
-    }
-
-    .h3 {
-        @apply text-base font-bold capitalize;
-    }
-
-    .paragraph {
-        @apply text-14 font-semibold capitalize;
-    }
-
-    .card .icon {
-        @apply w-20 mt-4 object-contain object-center transform scale-200;
-    }
-
-    .card .loading {
-        @apply w-14 h-14 block;
     }
 
     @media only screen and (min-width: 540px) {
         .inner {
-            @apply p-8 block rounded-lg;
+            @apply px-8 py-8 block rounded-lg;
         }
 
         .card {
             @apply w-full relative rounded-lg;
-        }
-
-        .h1 {
-            @apply text-48;
-        }
-
-        .h2 {
-            @apply text-28;
-        }
-
-        .h3 {
-            @apply text-22;
-        }
-
-        .paragraph {
-            @apply text-base;
-        }
-
-        .card .icon {
-            @apply w-10 mt-8;
-        }
-
-        .card .loading {
-            @apply w-16 h-16;
         }
     }
 }

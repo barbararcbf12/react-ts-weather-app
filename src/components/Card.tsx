@@ -21,37 +21,46 @@ function Card({ unit, position }: CardProps) {
     return unit === 'celsius' ? `${formatTemperature(temperature, false)}°C` : `${formatTemperature(temperature, true)}°F`;
   }, [temperature, unit]);
 
-  if(isFetching || !weatherData){
+  if (isFetching || !weatherData) {
     return (
-      <div className="card">
-        <div
-          className="inner flex items-center justify-center min-w-[15.5rem] min-h-[15.5rem] md:min-w-[20rem] md:min-h-[18rem]">
-          <div className="loading-dots"/>
-          {/*<img width={70} height={70} className="loading" src="/loading.gif" alt="Loading..."/>*/ }
-        </div>
-      </div>
+      <CardWrapper>
+        <div className="loading-dots"/>
+      </CardWrapper>
     )
   }
 
   return (
-    <section className="card">
-      <div className="inner space-y-4 min-w-[15.5rem] min-h-[15.5rem] md:min-w-[20rem] md:min-h-[18rem]">
-        <header className="paragraph flex items-center justify-start space-y-4">
+    <CardWrapper>
+      <header className="text-base flex flex-col items-start justify-start space-y-4">
+        <div className="flex align-end">
           <img src="/pin.svg" alt="logo" className="h-6 w-6 inline-block mr-2 text-white"/>
-          <h2>{ city } { country }</h2>
-        </header>
-        <section className="space-y-4">
-          <p className="h2">{ DAYS[getDay()] }</p>
-          <p className="paragraph">{ getDate() }</p>
-        </section>
-        <section className="space-y-4">
-          <img width="120px" height="120px" className="icon" src={ composeSrc(icon) } alt=""></img>
-          <p className="h1">{ toggledTemperature }</p>
-          <p className="h3">{ description }</p>
-        </section>
-      </div>
-    </section>
-)
-};
+          <h2 className="text-22 font-semibold">{city} {country}</h2>
+        </div>
+        <div className="flex flex-col space-y-1 leading-120">
+          <time className="text-22 font-bold" dateTime={DAYS[getDay()]}>{DAYS[getDay()]}</time>
+          <time dateTime={getDate()}>{getDate()}</time>
+        </div>
+      </header>
+      <section className="flex space-x-4">
+        <div className="flex flex-col justify-center leading-120">
+          <p className="text-48 font-extrabold">{toggledTemperature}</p>
+          <p className="text-22 font-bold">{description}</p>
+        </div>
+        <img width={100} height={100} src={composeSrc(icon)} alt=""/>
+      </section>
+    </CardWrapper>
+  )
+}
 
 export default Card;
+
+function CardWrapper({children}: {children: React.ReactNode} ) {
+  return (
+    <div className="card">
+      <div
+        className="inner space-y-4 md:space-y-0 flex flex-col justify-between min-w-[15.5rem] min-h-[14rem] md:min-w-[20rem] md:min-h-[18rem]">
+        {children}
+      </div>
+    </div>
+  )
+}
