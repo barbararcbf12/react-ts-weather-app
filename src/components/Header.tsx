@@ -1,7 +1,6 @@
-import React from "react";
-import MapboxAutocomplete from 'react-mapbox-autocomplete';
-import "../styles/react-mapbox.css";
+import React, { memo } from "react";
 import { TemperatureUnitEnum } from "../types";
+import SearchWithSuggestions from "./SearchWithSuggestions";
 
 type HeaderProps = {
   onClick: (lat: number, lang: number) => void;
@@ -9,17 +8,9 @@ type HeaderProps = {
   unit: TemperatureUnitEnum;
 };
 
-const PUBLIC_KEY = process.env.REACT_APP_MAPBOX_PUBLIC_KEY;
-
 function Header({ onClick, toggleUnit, unit }: HeaderProps) {
-
-  function handleOnSuggestionSelect(result: string, lat: number, lang: number) {
-    onClick(lat, lang);
-  }
-
-  function handlToggleTempUnit() {
-    toggleUnit();
-  }
+  const handleOnSuggestionSelect = (result: string, lat: number, lang: number) => onClick(lat, lang);
+  const handlToggleTempUnit = ()  => toggleUnit();
 
   const buttonToggle = (
     <button onClick={ handlToggleTempUnit } className="flex w-full rounded-desktop overflow-hidden">
@@ -35,7 +26,7 @@ function Header({ onClick, toggleUnit, unit }: HeaderProps) {
       className="flex-col space-y-2 lg:space-y-0 lg:flex-row fixed z-50 top-0 bg-grey-100 bg-opacity-80 shadow-elevation-01 w-full text-primary-900 flex justify-between items-center py-3 px-6">
       <div className="text-20 lg:space-x-1 flex items-center justify-between w-full">
         <div className="text-20 lg:space-x-1 flex items-center">
-          <img src="/logo.svg" alt="logo" className="h-10 w-10 inline-block mr-2"/>
+          <img src="/logo.svg" alt="Weather app logo" className="h-10 w-10 inline-block mr-2" aria-hidden="true"/>
           <h1>Weather app</h1>
         </div>
         <span className="flex lg:hidden">
@@ -43,13 +34,7 @@ function Header({ onClick, toggleUnit, unit }: HeaderProps) {
         </span>
       </div>
       <nav className="text-20 lg:space-x-6 flex flex-col items-center justify-center lg:flex-row space-y-2 lg:space-y-0">
-        <MapboxAutocomplete
-          placeholder="Search City or Zip Code"
-          publicKey={ PUBLIC_KEY }
-          inputClass='w-full m-0'
-          onSuggestionSelect={ handleOnSuggestionSelect }
-          resetSearch={ true }
-        />
+        <SearchWithSuggestions onChange={handleOnSuggestionSelect} />
         <div className="w-30 hidden lg:flex">
           { buttonToggle }
         </div>
@@ -58,4 +43,4 @@ function Header({ onClick, toggleUnit, unit }: HeaderProps) {
   );
 }
 
-export default Header;
+export default memo(Header);
