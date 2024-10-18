@@ -1,0 +1,50 @@
+.loading-dots {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #5b7870;
+    color: #5b7870;
+    animation: loadingDots 1s infinite linear alternate;
+    animation-delay: 0.5s;
+}
+
+.loading-dots::before,
+.loading-dots::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+}
+
+.loading-dots::before {
+    left: -15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #5b7870;
+    color: #5b7870;
+    animation: loadingDots 1s infinite alternate;
+    animation-delay: 0s;
+}
+
+.loading-dots::after {
+    left: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #5b7870;
+    color: #5b7870;
+    animation: loadingDots 1s infinite alternate;
+    animation-delay: 1s;
+}
+
+@keyframes loadingDots {
+    0% {
+        background-color: #5b7870;
+    }
+    50%,
+    100% {
+        background-color: #d7dfd9;
+    }
+}

@@ -4,6 +4,9 @@
     display: flex;
     justify-content: center;
 }
+.mapboxgl-marker {
+    z-index: 99;
+}
 .react-mapbox-ac-input {
     margin: 0;
     display: flex;
