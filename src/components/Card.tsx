@@ -1,10 +1,11 @@
-import React from 'react'
-import "../styles/card.css"
-import { TemperatureUnitEnum, WeatherData } from "../types";
+import React, { useMemo } from 'react';
+import { Coordinates, TemperatureUnitEnum } from "../types";
+import { getDate, getDay } from "../utils/dateFunctions";
+import { formatTemperature } from "../utils/formatTemperature";
+import { useWeather } from "../hooks/useWeather";
 
 type CardProps = {
-  weather?: WeatherData;
-  isFetching: boolean;
+  position: Coordinates;
   unit: TemperatureUnitEnum;
 }
 
@@ -12,25 +13,25 @@ const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
 
 const composeSrc = (icon?: string) => icon ? `http://openweathermap.org/img/w/${icon}.png` : "";
 
-const getDay = () => new Date().getDay();
-const getDate = () => (new Date().toDateString()).slice(3);
-const formatTemperature = (temperature?: string, isFahrenheit?: boolean) => temperature && isFahrenheit ? Math.round(Number(temperature)) : Math.round(Number(temperature) - 273.15);
+function Card({ unit, position }: CardProps) {
+  const { weatherData, isFetching } = useWeather(position);
+  const { icon, temperature, description, city, country } = weatherData ?? {};
 
-export default function Card({ weather, unit, isFetching }: CardProps) {
-  const { icon, temperature, description, city, country } = weather ?? {};
+  const toggledTemperature = useMemo(() => {
+    return unit === 'celsius' ? `${formatTemperature(temperature, false)}°C` : `${formatTemperature(temperature, true)}°F`;
+  }, [temperature, unit]);
 
-  if(isFetching || !weather){
+  if(isFetching || !weatherData){
     return (
       <div className="card">
         <div
           className="inner flex items-center justify-center min-w-[15.5rem] min-h-[15.5rem] md:min-w-[20rem] md:min-h-[18rem]">
-          <img width={70} height={70} className="loading" src="/loading.gif" alt=""/>
+          <div className="loading-dots"/>
+          {/*<img width={70} height={70} className="loading" src="/loading.gif" alt="Loading..."/>*/ }
         </div>
       </div>
     )
   }
-
-  const toggledTemperature = unit === 'celsius' ? `${ formatTemperature(temperature, false) }°C` : `${ formatTemperature(temperature, true) }°F`;
 
   return (
     <section className="card">
@@ -39,14 +40,18 @@ export default function Card({ weather, unit, isFetching }: CardProps) {
           <img src="/pin.svg" alt="logo" className="h-6 w-6 inline-block mr-2 text-white"/>
           <h2>{ city } { country }</h2>
         </header>
-        <section  className="space-y-4">
+        <section className="space-y-4">
           <p className="h2">{ DAYS[getDay()] }</p>
           <p className="paragraph">{ getDate() }</p>
-          <img className="icon" src={ composeSrc(icon) } alt=""></img>
+        </section>
+        <section className="space-y-4">
+          <img width="120px" height="120px" className="icon" src={ composeSrc(icon) } alt=""></img>
           <p className="h1">{ toggledTemperature }</p>
           <p className="h3">{ description }</p>
         </section>
       </div>
     </section>
-  )
+)
 };
+
+export default Card;

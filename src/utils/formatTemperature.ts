@@ -1,0 +1,1 @@
+export const formatTemperature = (temperature?: string, isFahrenheit?: boolean) => temperature && isFahrenheit ? Math.round(Number(temperature)) : Math.round(Number(temperature) - 273.15);
